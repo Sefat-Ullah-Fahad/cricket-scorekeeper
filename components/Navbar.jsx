@@ -47,7 +47,7 @@ export default function Navbar() {
 <Link href={user ? "/dashboard" : "/"} className="flex items-center gap-2.5 group">
   <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-transform relative">
     <Image
-      src="https://res.cloudinary.com/dp08caz1r/image/upload/v1789966457/logo_otm8xs.png"
+      src="https://res.cloudinary.com/dp08caz1r/image/upload/v1790073691/50488d7c-ea70-4c92-8ac8-27959ce42e14_uetb5f.png"
       alt="ScoreKeeper Logo"
       fill
       className="object-cover"
