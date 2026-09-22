@@ -6,10 +6,8 @@ import { connectToDatabase } from '@/lib/mongodb';
 import { MdSportsCricket } from 'react-icons/md';
 import { FiClock } from 'react-icons/fi';
 
-// Must match SESSION_COOKIE_NAME in lib/auth.js
 const SESSION_COOKIE_NAME = 'cricket_session';
 
-// Statuses that count as "not finished yet" — these float to the top of the list.
 const LIVE_LIKE_STATUSES = ['LIVE', 'INNINGS_BREAK', 'LUNCH_BREAK', 'TEA_BREAK', 'STUMPS'];
 
 function statusBadge(status) {
@@ -27,24 +25,22 @@ function statusBadge(status) {
 async function requireUser() {
   const cookieStore = await cookies();
   const token = cookieStore.get(SESSION_COOKIE_NAME)?.value;
-  if (!token) {
-    redirect('/login');
-  }
+  if (!token) redirect('/login');
   const result = await getSession(token);
-  if (!result) {
-    redirect('/login');
-  }
+  if (!result) redirect('/login');
   return result.user;
 }
 
 export default async function AllMatchPage() {
-  const user = await requireUser();
+  // Still requires login to view — but no longer filters by ownership.
+  await requireUser();
 
   const { db } = await connectToDatabase();
-const rawMatches = await db
-  .collection('matches')
-  .find({})
-  .toArray();
+
+  // NOTE: intentionally no { ownerId } filter here — this page is meant to
+  // show every match in the database, from every user, since the app will
+  // be shared with other scorers.
+  const rawMatches = await db.collection('matches').find({}).toArray();
 
   const matches = rawMatches
     .map((m) => ({
@@ -75,7 +71,7 @@ const rawMatches = await db
         <div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-zinc-50">All Match</h1>
           <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
-            Read-only view of every match — live matches appear first.
+            Read-only view of every match on the platform — live matches appear first.
           </p>
         </div>
       </div>
