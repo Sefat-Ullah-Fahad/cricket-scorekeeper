@@ -1,0 +1,6 @@
+{
+  "name": "Cricket Scorekeeper",
+  "description": "A complete production-ready full-stack cricket scoring and live match tracking web application with ball-by-ball scoring, undo, and live sharing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

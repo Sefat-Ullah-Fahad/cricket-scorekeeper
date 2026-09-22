@@ -1,0 +1,9 @@
+{
+  "/dashboard/page": "app/dashboard/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/matches/[id]/page": "app/matches/[id]/page.js",
+  "/matches/new/page": "app/matches/new/page.js",
+  "/api/matches/[id]/interval/route": "app/api/matches/[id]/interval/route.js",
+  "/live/[shareToken]/page": "app/live/[shareToken]/page.js"
+}
