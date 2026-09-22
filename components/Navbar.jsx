@@ -6,6 +6,7 @@ import { useApp } from './LanguageThemeContext';
 import { useToast } from './Toast';
 import { MdSportsCricket } from 'react-icons/md';
 import { FiSun, FiMoon, FiGlobe, FiPlus, FiLogOut, FiUser, FiMenu, FiX, FiLayers, FiList } from 'react-icons/fi';
+import Image from 'next/image';
 
 export default function Navbar() {
   const { user, setUser, language, setLanguage, theme, toggleTheme, t } = useApp();
@@ -42,20 +43,25 @@ export default function Navbar() {
     <nav className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/90 dark:bg-zinc-950/90 border-b border-zinc-200 dark:border-zinc-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Brand Logo */}
-          <Link href={user ? "/dashboard" : "/"} className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-transform">
-              <MdSportsCricket className="w-6 h-6" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-lg leading-tight tracking-tight text-zinc-900 dark:text-zinc-50">
-                {t('appName')}
-              </span>
-              <span className="text-[10px] uppercase font-semibold tracking-wider text-emerald-600 dark:text-emerald-400">
-                Pro Scorekeeper
-              </span>
-            </div>
-          </Link>
+       {/* Brand Logo */}
+<Link href={user ? "/dashboard" : "/"} className="flex items-center gap-2.5 group">
+  <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-transform relative">
+    <Image
+      src="https://res.cloudinary.com/dp08caz1r/image/upload/v1789966457/logo_otm8xs.png"
+      alt="ScoreKeeper Logo"
+      fill
+      className="object-cover"
+    />
+  </div>
+  <div className="flex flex-col">
+    <span className="font-bold text-lg leading-tight tracking-tight text-zinc-900 dark:text-zinc-50">
+      {t('appName')}
+    </span>
+    <span className="text-[10px] uppercase font-semibold tracking-wider text-emerald-600 dark:text-emerald-400">
+      Pro Scorekeeper
+    </span>
+  </div>
+</Link>
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-1.5">
