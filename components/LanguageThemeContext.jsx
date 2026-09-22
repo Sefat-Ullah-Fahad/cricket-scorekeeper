@@ -36,6 +36,39 @@ export function LanguageThemeProvider({ children, initialUser = null }) {
     }
   }, [initialUser]);
 
+  // SELF-HEALING FALLBACK:
+  // If the server (RootLayout) failed to resolve a logged-in user — e.g. a
+  // transient MongoDB connection hiccup in the serverless environment — try
+  // once, client-side, to confirm the session directly. This prevents the
+  // navbar from showing "Log In / Create Account" while the rest of the app
+  // (which may fetch its own data independently) correctly shows the user
+  // as logged in.
+  useEffect(() => {
+    if (user) return; // already have a user from the server, nothing to do
+    if (typeof window === 'undefined') return;
+
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const res = await fetch('/api/auth/session', { credentials: 'include' });
+        if (!res.ok) return; // genuinely not logged in (401) — leave user as null
+        const data = await res.json();
+        if (!cancelled && data && data.user) {
+          setUser(data.user);
+        }
+      } catch (err) {
+        // Network/parse error — silently ignore, navbar just stays logged-out looking
+        console.error('[SESSION SYNC] Fallback session check failed:', err.message);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run once on mount only
+
   const changeLanguage = (newLang) => {
     setLanguage(newLang);
     if (typeof window !== 'undefined') {
