@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useApp } from './LanguageThemeContext';
 import { useToast } from './Toast';
 import { MdSportsCricket } from 'react-icons/md';
-import { FiSun, FiMoon, FiGlobe, FiPlus, FiLogOut, FiUser, FiMenu, FiX, FiLayers } from 'react-icons/fi';
+import { FiSun, FiMoon, FiGlobe, FiPlus, FiLogOut, FiUser, FiMenu, FiX, FiLayers, FiList } from 'react-icons/fi';
 
 export default function Navbar() {
   const { user, setUser, language, setLanguage, theme, toggleTheme, t } = useApp();
@@ -21,7 +21,7 @@ export default function Navbar() {
       const res = await fetch('/api/auth/logout', { method: 'POST' });
       if (res.ok) {
         setUser(null);
-        toast.success(language === 'bn' ? 'সফলভাবে লগআউট হয়েছে।' : 'Logged out successfully.');
+        toast.success(language === 'bn' ? 'সফলভাবে লগআউট হয়েছে।' : 'Logged out successfully.');
         router.push('/login');
         router.refresh();
       } else {
@@ -58,28 +58,47 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav Links */}
-          {user && (
-            <div className="hidden md:flex items-center gap-1.5">
-              <Link
-                href="/dashboard"
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive('/dashboard')
-                    ? 'bg-zinc-100 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 font-semibold'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
-                }`}
-              >
-                {t('dashboard')}
-              </Link>
-              <Link
-                href="/matches"
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive('/matches')
-                    ? 'bg-zinc-100 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 font-semibold'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
-                }`}
-              >
-                {t('matchHistory')}
-              </Link>
+          <div className="hidden md:flex items-center gap-1.5">
+            {user && (
+              <>
+                <Link
+                  href="/dashboard"
+                  className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive('/dashboard')
+                      ? 'bg-zinc-100 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 font-semibold'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
+                  }`}
+                >
+                  {t('dashboard')}
+                </Link>
+                <Link
+                  href="/matches"
+                  className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive('/matches')
+                      ? 'bg-zinc-100 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 font-semibold'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
+                  }`}
+                >
+                  {t('matchHistory')}
+                </Link>
+              </>
+            )}
+
+            {/* All Match — always visible, whether logged in or not.
+                If the user is not authenticated, the /all-match page itself
+                redirects to /login (see app/all-match/page.jsx). */}
+            <Link
+              href="/all-match"
+              className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                isActive('/all-match')
+                  ? 'bg-zinc-100 dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 font-semibold'
+                  : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
+              }`}
+            >
+              {language === 'bn' ? 'সকল ম্যাচ' : 'All Match'}
+            </Link>
+
+            {user && (
               <Link
                 href="/matches/new"
                 className="ml-2 flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-all"
@@ -87,8 +106,8 @@ export default function Navbar() {
                 <FiPlus className="w-4 h-4" />
                 <span>{t('createMatch')}</span>
               </Link>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Right Action Tools: Language, Theme, Profile/Logout */}
           <div className="hidden md:flex items-center gap-3">
@@ -187,38 +206,56 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 pt-3 pb-5 space-y-2 shadow-xl">
+          {user && (
+            <div className="flex items-center gap-3 p-2 border-b border-zinc-100 dark:border-zinc-800 pb-3 mb-2">
+              {user.image ? (
+                <img src={user.image} alt={user.name} className="w-9 h-9 rounded-full object-cover" />
+              ) : (
+                <div className="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">
+                  {user.name ? user.name[0].toUpperCase() : 'U'}
+                </div>
+              )}
+              <div>
+                <div className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">{user.name}</div>
+                <div className="text-xs text-zinc-500 truncate max-w-[200px]">{user.email}</div>
+              </div>
+            </div>
+          )}
+
+          {user && (
+            <Link
+              href="/dashboard"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            >
+              <FiLayers className="w-4 h-4 text-emerald-600" />
+              <span>{t('dashboard')}</span>
+            </Link>
+          )}
+
+          {user && (
+            <Link
+              href="/matches"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            >
+              <MdSportsCricket className="w-4 h-4 text-emerald-600" />
+              <span>{t('matchHistory')}</span>
+            </Link>
+          )}
+
+          {/* All Match — always visible on mobile too */}
+          <Link
+            href="/all-match"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+          >
+            <FiList className="w-4 h-4 text-emerald-600" />
+            <span>{language === 'bn' ? 'সকল ম্যাচ' : 'All Match'}</span>
+          </Link>
+
           {user ? (
             <>
-              <div className="flex items-center gap-3 p-2 border-b border-zinc-100 dark:border-zinc-800 pb-3 mb-2">
-                {user.image ? (
-                  <img src={user.image} alt={user.name} className="w-9 h-9 rounded-full object-cover" />
-                ) : (
-                  <div className="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">
-                    {user.name ? user.name[0].toUpperCase() : 'U'}
-                  </div>
-                )}
-                <div>
-                  <div className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">{user.name}</div>
-                  <div className="text-xs text-zinc-500 truncate max-w-[200px]">{user.email}</div>
-                </div>
-              </div>
-
-              <Link
-                href="/dashboard"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-              >
-                <FiLayers className="w-4 h-4 text-emerald-600" />
-                <span>{t('dashboard')}</span>
-              </Link>
-              <Link
-                href="/matches"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-              >
-                <MdSportsCricket className="w-4 h-4 text-emerald-600" />
-                <span>{t('matchHistory')}</span>
-              </Link>
               <Link
                 href="/matches/new"
                 onClick={() => setMobileMenuOpen(false)}

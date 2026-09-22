@@ -1,4 +1,4 @@
-// File: D:\My Work\cricket-scorekeeper\1\app\live\[shareToken]\page.jsx
+// File: D:\My Work\cricket-scorekeeper\cricket-scorekeeper\app\live\[shareToken]\page.jsx
 import * as entry from '../../../../../app/live/[shareToken]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -1,4 +1,4 @@
-// File: D:\My Work\cricket-scorekeeper\1\app\api\auth\google\route.js
+// File: D:\My Work\cricket-scorekeeper\cricket-scorekeeper\app\api\auth\google\route.js
 import * as entry from '../../../../../../app/api/auth/google/route.js'
 import type { NextRequest } from 'next/server.js'
 
