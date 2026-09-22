@@ -29,7 +29,6 @@ function InningsCard({ title, inn }) {
         </div>
       </div>
 
-      {/* Batters table */}
       <div>
         <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-2 text-[10px] font-bold uppercase tracking-wider text-zinc-400 pb-1.5 border-b border-zinc-100 dark:border-zinc-800">
           <span>Batter</span>
@@ -52,7 +51,6 @@ function InningsCard({ title, inn }) {
         ))}
       </div>
 
-      {/* Bowlers table */}
       <div>
         <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-2 text-[10px] font-bold uppercase tracking-wider text-zinc-400 pb-1.5 border-b border-zinc-100 dark:border-zinc-800 mt-3">
           <span>Bowler</span>
@@ -76,7 +74,6 @@ function InningsCard({ title, inn }) {
         })}
       </div>
 
-      {/* Extras & fall of wickets */}
       <div className="text-xs text-zinc-500 dark:text-zinc-400 pt-2 space-y-1">
         <div>
           Extras: {inn.extras?.total || 0}
@@ -100,12 +97,43 @@ export default async function AllMatchDetailPage({ params }) {
   const user = await requireUser();
   const { id } = params;
 
-  const { db } = await connectToDatabase();
-  const query = { _id: id.length === 24 ? new ObjectId(id) : id };
+  console.log(`[ALL-MATCH DETAIL] Requested id="${id}" by userId="${user.id}"`);
+
+  let db;
+  try {
+    const conn = await connectToDatabase();
+    db = conn.db;
+  } catch (err) {
+    console.error('[ALL-MATCH DETAIL] connectToDatabase threw:', err?.message);
+    throw err; // let it surface as a 500 with a real stack, not a silent 404
+  }
+
+  if (!db) {
+    console.error('[ALL-MATCH DETAIL] connectToDatabase returned no db object (Mongo likely unreachable)');
+    throw new Error('Database unavailable');
+  }
+
+  let query;
+  try {
+    query = { _id: id.length === 24 ? new ObjectId(id) : id };
+  } catch (err) {
+    console.error(`[ALL-MATCH DETAIL] Invalid ObjectId "${id}":`, err?.message);
+    notFound();
+  }
+
   const match = await db.collection('matches').findOne(query);
 
-  if (!match) notFound();
-  if (match.ownerId !== user.id.toString()) notFound();
+  if (!match) {
+    console.error(`[ALL-MATCH DETAIL] No match document found for id="${id}"`);
+    notFound();
+  }
+
+  if (match.ownerId !== user.id.toString()) {
+    console.error(
+      `[ALL-MATCH DETAIL] Owner mismatch: match.ownerId="${match.ownerId}" vs session user.id="${user.id.toString()}"`
+    );
+    notFound();
+  }
 
   return (
     <div className="max-w-4xl mx-auto py-6 px-1 space-y-5">

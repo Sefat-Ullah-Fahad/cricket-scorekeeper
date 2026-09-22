@@ -1,9 +1,10 @@
 {
-  "/register/page": "app/register/page.js",
   "/api/auth/session/route": "app/api/auth/session/route.js",
   "/page": "app/page.js",
-  "/api/auth/login/route": "app/api/auth/login/route.js",
-  "/dashboard/page": "app/dashboard/page.js",
   "/login/page": "app/login/page.js",
-  "/matches/[id]/page": "app/matches/[id]/page.js"
+  "/dashboard/page": "app/dashboard/page.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/all-match/page": "app/all-match/page.js",
+  "/matches/[id]/page": "app/matches/[id]/page.js",
+  "/api/auth/google/route": "app/api/auth/google/route.js"
 }
