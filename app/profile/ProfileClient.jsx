@@ -134,7 +134,7 @@ export default function ProfileClient({ initialUser }) {
           </div>
 
           {/* Theme & Language Preferences */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div>
               <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                 {t('theme')}
@@ -198,7 +198,7 @@ export default function ProfileClient({ initialUser }) {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <button
             type="submit"
