@@ -737,6 +737,9 @@ video {
 .h-9 {
   height: 2.25rem;
 }
+.h-full {
+  height: 100%;
+}
 .max-h-36 {
   max-height: 9rem;
 }
@@ -1333,6 +1336,10 @@ video {
 }
 .fill-white {
   fill: #fff;
+}
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .object-cover {
   -o-object-fit: cover;

@@ -65,7 +65,7 @@ const confirmLogout = async () => {
     />
   </div>
   <div className="flex flex-col">
-    <span className="font-bold text-lg leading-tight tracking-tight text-zinc-900 dark:text-zinc-50">
+    <span className="font-bold text-lg  leading-tight tracking-tight text-zinc-900 dark:text-zinc-50">
       {t('appName')}
     </span>
     <span className="text-[10px] uppercase font-semibold tracking-wider text-emerald-600 dark:text-emerald-400">
@@ -297,7 +297,7 @@ const confirmLogout = async () => {
               </Link>
 
               <button
-                onClick={handleLogout}
+                onClick={handleLogoutClick}
                 disabled={isLoggingOut}
                 className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40"
               >
