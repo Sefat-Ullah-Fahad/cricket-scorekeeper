@@ -1,8 +1,9 @@
 {
-  "/register/page": "app/register/page.js",
   "/dashboard/page": "app/dashboard/page.js",
   "/matches/page": "app/matches/page.js",
-  "/matches/[id]/page": "app/matches/[id]/page.js",
   "/matches/new/page": "app/matches/new/page.js",
-  "/all-match/page": "app/all-match/page.js"
+  "/all-match/page": "app/all-match/page.js",
+  "/matches/[id]/page": "app/matches/[id]/page.js",
+  "/all-match/[id]/page": "app/all-match/[id]/page.js",
+  "/profile/page": "app/profile/page.js"
 }
