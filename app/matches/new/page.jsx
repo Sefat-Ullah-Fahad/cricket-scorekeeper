@@ -6,6 +6,7 @@ import { useToast } from '../../../components/Toast';
 import { MdSportsCricket } from 'react-icons/md';
 import { FiArrowLeft, FiPlus, FiTrash2, FiUsers, FiPlay, FiList, FiEdit3 } from 'react-icons/fi';
 import Link from 'next/link';
+import CricketBallLoader from '@/components/CricketBallLoader';
 
 export default function NewMatchPage() {
   const [teamA, setTeamA] = useState('');
@@ -489,7 +490,7 @@ export default function NewMatchPage() {
             className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 transition-all cursor-pointer"
           >
             {loading ? (
-              <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              <CricketBallLoader size={16} />
             ) : (
               <>
                 <FiPlay className="w-4 h-4 fill-white" />
