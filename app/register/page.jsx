@@ -7,6 +7,7 @@ import { useToast } from '../../components/Toast';
 import { MdSportsCricket } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc';
 import { FiUser, FiMail, FiLock, FiArrowRight, FiAlertCircle } from 'react-icons/fi';
+import CricketBallLoader from '@/components/CricketBallLoader';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -190,7 +191,7 @@ export default function RegisterPage() {
             className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white font-semibold text-sm shadow-md shadow-emerald-600/20 transition-all mt-4"
           >
             {loading ? (
-              <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              <CricketBallLoader size={16} />
             ) : (
               <>
                 <span>{t('register')}</span>

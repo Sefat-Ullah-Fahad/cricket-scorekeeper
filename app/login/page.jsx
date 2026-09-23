@@ -7,6 +7,7 @@ import { useToast } from '../../components/Toast';
 import { MdSportsCricket } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc';
 import { FiMail, FiLock, FiArrowRight, FiAlertCircle } from 'react-icons/fi';
+import CricketBallLoader from '@/components/CricketBallLoader';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -154,7 +155,7 @@ export default function LoginPage() {
             className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white font-semibold text-sm shadow-md shadow-emerald-600/20 transition-all mt-2"
           >
             {loading ? (
-              <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              <CricketBallLoader size={16} />
             ) : (
               <>
                 <span>{t('login')}</span>

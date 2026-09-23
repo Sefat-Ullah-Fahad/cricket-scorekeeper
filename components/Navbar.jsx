@@ -270,6 +270,7 @@ export default function Navbar() {
                 <FiPlus className="w-4 h-4" />
                 <span>{t('createMatch')}</span>
               </Link>
+              
               <Link
                 href="/profile"
                 onClick={() => setMobileMenuOpen(false)}
