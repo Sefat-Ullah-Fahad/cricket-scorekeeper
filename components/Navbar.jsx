@@ -7,6 +7,7 @@ import { useToast } from './Toast';
 import { MdSportsCricket } from 'react-icons/md';
 import { FiSun, FiMoon, FiGlobe, FiPlus, FiLogOut, FiUser, FiMenu, FiX, FiLayers, FiList } from 'react-icons/fi';
 import Image from 'next/image';
+import ConfirmDialog from './ConfirmDialog';
 
 export default function Navbar() {
   const { user, setUser, language, setLanguage, theme, toggleTheme, t } = useApp();
@@ -15,27 +16,37 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const toast = useToast();
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
-  const handleLogout = async () => {
-    setIsLoggingOut(true);
-    try {
-      const res = await fetch('/api/auth/logout', { method: 'POST' });
-      if (res.ok) {
-        setUser(null);
-        toast.success(language === 'bn' ? 'সফলভাবে লগআউট হয়েছে।' : 'Logged out successfully.');
-        router.push('/login');
-        router.refresh();
-      } else {
-        toast.error('Failed to log out');
-      }
-    } catch (err) {
-      console.error('[AUTH ERROR] Logout failed:', err);
-      toast.error('Network error during logout');
-    } finally {
-      setIsLoggingOut(false);
-      setMobileMenuOpen(false);
+
+
+
+
+const handleLogoutClick = () => {
+  setShowLogoutConfirm(true);
+};
+
+const confirmLogout = async () => {
+  setShowLogoutConfirm(false);
+  setIsLoggingOut(true);
+  try {
+    const res = await fetch('/api/auth/logout', { method: 'POST' });
+    if (res.ok) {
+      setUser(null);
+      toast.success(language === 'bn' ? 'সফলভাবে লগআউট হয়েছে।' : 'Logged out successfully.');
+      router.push('/login');
+      router.refresh();
+    } else {
+      toast.error('Failed to log out');
     }
-  };
+  } catch (err) {
+    console.error('[AUTH ERROR] Logout failed:', err);
+    toast.error('Network error during logout');
+  } finally {
+    setIsLoggingOut(false);
+    setMobileMenuOpen(false);
+  }
+};
 
   const isActive = (path) => pathname === path;
 
@@ -155,15 +166,20 @@ export default function Navbar() {
                     {user.name}
                   </span>
                 </Link>
+
+
+
                 <button
-                  onClick={handleLogout}
-                  disabled={isLoggingOut}
-                  className="p-2 rounded-lg text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
-                  title={t('logout')}
-                  aria-label={t('logout')}
-                >
-                  <FiLogOut className="w-4 h-4" />
-                </button>
+  onClick={handleLogoutClick}
+  disabled={isLoggingOut}
+  className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40"
+>
+  <FiLogOut className="w-4 h-4" />
+  <span>{t('logout')}</span>
+</button>
+
+
+
               </div>
             ) : (
               <div className="flex items-center gap-2">
@@ -309,6 +325,16 @@ export default function Navbar() {
           )}
         </div>
       )}
+            <ConfirmDialog
+        open={showLogoutConfirm}
+        title={language === 'bn' ? 'লগআউট নিশ্চিত করুন' : 'Confirm Logout'}
+        message={language === 'bn' ? 'আপনি কি নিশ্চিত লগআউট করতে চান?' : 'Are you sure you want to log out?'}
+        confirmLabel={language === 'bn' ? 'লগআউট' : 'Log Out'}
+        cancelLabel={language === 'bn' ? 'বাতিল' : 'Cancel'}
+        onConfirm={confirmLogout}
+        onCancel={() => setShowLogoutConfirm(false)}
+      />
     </nav>
+    
   );
 }
