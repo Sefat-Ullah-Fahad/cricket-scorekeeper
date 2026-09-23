@@ -55,7 +55,9 @@ export async function POST(req, { params }) {
 
     if (safeMatch.shareEnabled && safeMatch.shareToken) {
       broadcastMatchUpdate(safeMatch.shareToken, safeMatch);
+      
     }
+    broadcastMatchUpdate(`allmatch:${id}`, safeMatch);
 
     return NextResponse.json({ success: true, match: safeMatch });
   } catch (err) {

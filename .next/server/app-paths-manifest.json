@@ -1,7 +1,9 @@
 {
-  "/login/page": "app/login/page.js",
-  "/matches/new/page": "app/matches/new/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
+  "/all-match/[id]/page": "app/all-match/[id]/page.js",
+  "/all-match/page": "app/all-match/page.js",
   "/matches/[id]/page": "app/matches/[id]/page.js",
-  "/matches/page": "app/matches/page.js"
+  "/live/[shareToken]/page": "app/live/[shareToken]/page.js",
+  "/api/all-match/[id]/stream/route": "app/api/all-match/[id]/stream/route.js",
+  "/matches/page": "app/matches/page.js",
+  "/dashboard/page": "app/dashboard/page.js"
 }
