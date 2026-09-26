@@ -56,9 +56,9 @@ const confirmLogout = async () => {
         <div className="flex items-center justify-between h-16">
        {/* Brand Logo */}
 <Link href={user ? "/dashboard" : "/"} className="flex items-center gap-2.5 group">
-  <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-transform relative">
+  <div className="w-12 h-12 rounded-xl overflow-hidden shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-transform relative">
     <Image
-      src="https://res.cloudinary.com/dp08caz1r/image/upload/v1790073691/50488d7c-ea70-4c92-8ac8-27959ce42e14_uetb5f.png"
+      src="https://res.cloudinary.com/dp08caz1r/image/upload/v1790412628/abf04fc5-f7bd-4181-b77b-f623908b12ca_bb2d31.png"
       alt="ScoreKeeper Logo"
       fill
       className="object-cover"
@@ -66,10 +66,10 @@ const confirmLogout = async () => {
   </div>
   <div className="flex flex-col">
     <span className="font-bold text-lg  leading-tight tracking-tight text-zinc-900 dark:text-zinc-50">
-      {t('appName')}
+     Cricket
     </span>
     <span className="text-[10px] uppercase font-semibold tracking-wider text-emerald-600 dark:text-emerald-400">
-      Pro Scorekeeper
+      Scorekeeper
     </span>
   </div>
 </Link>

@@ -1,8 +1,3 @@
 {
-  "/all-match/[id]/page": "app/all-match/[id]/page.js",
-  "/matches/page": "app/matches/page.js",
-  "/api/all-match/[id]/route": "app/api/all-match/[id]/route.js",
-  "/all-match/page": "app/all-match/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/live/[shareToken]/page": "app/live/[shareToken]/page.js"
+  "/page": "app/page.js"
 }

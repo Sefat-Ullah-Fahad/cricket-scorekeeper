@@ -22,8 +22,8 @@ export const metadata = {
   ],
   applicationName: 'Cricket Scorekeeper',
   icons: {
-    icon: 'https://res.cloudinary.com/dp08caz1r/image/upload/v1790073691/50488d7c-ea70-4c92-8ac8-27959ce42e14_uetb5f.png',
-    apple: 'https://res.cloudinary.com/dp08caz1r/image/upload/v1790073691/50488d7c-ea70-4c92-8ac8-27959ce42e14_uetb5f.png',
+    icon: 'https://res.cloudinary.com/dp08caz1r/image/upload/v1790412628/abf04fc5-f7bd-4181-b77b-f623908b12ca_bb2d31.png',
+    apple: 'https://res.cloudinary.com/dp08caz1r/image/upload/v1790412628/abf04fc5-f7bd-4181-b77b-f623908b12ca_bb2d31.png',
   },
   openGraph: {
     title: 'Cricket Scorekeeper — Free Online Cricket Scoring App',
@@ -33,7 +33,7 @@ export const metadata = {
     url: 'https://cricket-scorekeeper-ten.vercel.app',
     images: [
       {
-        url: 'https://res.cloudinary.com/dp08caz1r/image/upload/v1790073691/50488d7c-ea70-4c92-8ac8-27959ce42e14_uetb5f.png',
+        url: 'https://res.cloudinary.com/dp08caz1r/image/upload/v1790412628/abf04fc5-f7bd-4181-b77b-f623908b12ca_bb2d31.png',
         width: 512,
         height: 512,
         alt: 'Cricket Scorekeeper Logo',
@@ -44,7 +44,7 @@ export const metadata = {
     card: 'summary',
     title: 'Cricket Scorekeeper — Free Online Cricket Scoring App',
     description: 'Ball-by-ball cricket scoring with real-time stats, undo, and live score sharing.',
-    images: ['https://res.cloudinary.com/dp08caz1r/image/upload/v1790073691/50488d7c-ea70-4c92-8ac8-27959ce42e14_uetb5f.png'],
+    images: ['https://res.cloudinary.com/dp08caz1r/image/upload/v1790412628/abf04fc5-f7bd-4181-b77b-f623908b12ca_bb2d31.png'],
   },
   robots: {
     index: true,
